@@ -1,0 +1,10 @@
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - samtools=1.16.1
+  - bedtools=2.30.0
+  - ucsc-bedtogenepred=377
+  - ucsc-genepredtogtf=377
+  - gffread=0.12.7
