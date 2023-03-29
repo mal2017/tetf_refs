@@ -1,6 +1,7 @@
 # for getting TE sequences
 TIDAL_ANNOTATION: https://github.com/laulabbrandeis/TIDAL/raw/master/annotation.tar.gz
 
+REPEAT_PEPS: https://github.com/rmhubley/RepeatMasker/raw/4fac7a82ebf8b6fcebb12d7a29c2eed1178f296d/Libraries/RepeatPeps.lib
 
 # standard flybase references/resources
 FULL_TRANSCRIPT_FASTA: http://ftp.flybase.net/releases/FB2021_04/dmel_r6.41/fasta/dmel-all-transcript-r6.41.fasta.gz # must be gz

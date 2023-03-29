@@ -1,11 +1,12 @@
 library(rtracklayer)
 
-gtffile <-  snakemake@input[["gtf"]] # gtffile <- "results/references/transcripts_and_consensus_tes/transcripts_and_consensus_tes.gtf"
+#gtffile <- "results/combined-anno/combined.gtf.gz"
+gtffile <-  snakemake@input[["gtf"]] 
 
 gtf <- import(gtffile)
 
 # salmon only takes mRNA 
-# UPDATE 211213: Decided to quantify all and exclude unwated seqs better, rather than trying to pre-align things
+# UPDATE 211213: Decided to quantify all and exclude unwated seqs later, rather than trying to pre-align things
 #allowed_types <- c("mRNA")
 #gtf2 <- gtf[gtf$type %in% allowed_types]
 gtf2 <- gtf

@@ -15,7 +15,6 @@ include: "rules/bt1_idx.smk"
 
 rule all:
     input:
-        "results/tidal-anno/Tidalbase_transposon_sequence.dmel.fixed.consensus.gtf.gz",
         "results/flybase-anno/genome.fasta.gz",
         "results/repeatmasker/reference_insertions.bed",
         rules.combined_references.output,
@@ -23,13 +22,13 @@ rule all:
         "results/salmon-idx/transcripts_and_consensus_tes.aux.txt",
         "results/bwa_mem2-idx/idx.0123",
         "results/combined-anno/transcripts-plus-tes.tx2id.tsv",
-        'results/bt1_unmasked-idx/'
+        'results/bt1_unmasked-idx/',
+        "results/combined-anno/transcripts-plus-tes.gtf",
 #         "results/indices/vanilla_salmon_tes_transcripts/index/",
 #         expand("results/indices/bwa_mem2/idx.{suf}",suf=["0123","amb","ann","bwt.2bit.64","pac"]),
 #         "results/references/transcripts_and_consensus_tes/transcripts_and_consensus_tes.aux.txt",
 #         "results/repeatmasker/reference_insertions.bed",
 #         "results/overlaps/overlaps.tsv.gz",
-#         "results/references/transcripts_and_consensus_tes/transcripts_and_consensus_tes.gtf",
 #         
 
 
