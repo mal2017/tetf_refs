@@ -11,6 +11,10 @@ rule combined_references:
     output:
         genome = "results/combined-anno/genome-plus-tes.fasta.gz",
         transcripts = "results/combined-anno/transcripts-plus-tes.fasta.gz",
+        g_fai = "results/combined-anno/genome-plus-tes.fasta.gz.fai",
+        t_fai = "results/combined-anno/transcripts-plus-tes.fasta.gz.fai",
+        g_gzi = "results/combined-anno/genome-plus-tes.fasta.gz.gzi",
+        t_gzi = "results/combined-anno/transcripts-plus-tes.fasta.gz.gzi",
     shell:
         """
         # combine the genome and tes
@@ -18,6 +22,9 @@ rule combined_references:
 
         # combine the transcripts and tes
         cat {input.transcripts} {input.tes} | gunzip -c | bgzip -c > {output.transcripts}
+
+        samtools faidx {output.genome} &&
+        samtools faidx {output.transcripts}
         """
 
 rule make_transcripts_and_consensus_tes_gtf:
