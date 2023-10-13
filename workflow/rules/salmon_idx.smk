@@ -21,7 +21,7 @@ rule salmon_decoy_mask_exons:
     priority: 50
     shell:
         """
-        awk -v OFS='\\t' '{{if ($3=="exon") {{print $1,$4,$5}}}}' {input.gtf} > {output.exons} &&
+        zcat {input.gtf} | awk -v OFS='\\t' '{{if ($3=="exon") {{print $1,$4,$5}}}}' > {output.exons} &&
         gunzip -c {input.genome} > {output.genome} &&
         bedtools maskfasta -fi {output.genome} -bed {output.exons} -fo {output.masked}
         """
@@ -64,6 +64,8 @@ rule salmon_decoy_finalize:
         txlike = rules.salmon_decoy_mashmap_align_txome.output.txlike,
         masked = rules.salmon_decoy_mask_exons.output.masked,
         txpfile = rules.combined_references.output.transcripts,
+        miscrna = rules.get_flybase_resources.output.MISCRNA_FASTA,
+        trna = rules.get_flybase_resources.output.TRNA_FASTA,
     output:
         txpfile = "results/salmon-idx/decoy/txpfile.fasta",
         txlike_merged = "results/salmon-idx/decoy/genome_found_merged.bed",
@@ -84,7 +86,7 @@ rule salmon_decoy_finalize:
         bedtools merge -i {input.txlike} > {output.txlike_merged} &&
         bedtools getfasta -fi {input.masked} -bed {output.txlike_merged} -fo {output.txlike_fa} &&
         awk '{{a=$0; getline;split(a, b, ":");  r[b[1]] = r[b[1]]""$0}} END {{ for (k in r) {{ print k"\\n"r[k] }} }}' {output.txlike_fa} > {output.decoy} &&
-        cat {output.txpfile} {output.decoy} > {output.gentrome}
+        zcat {input.miscrna} {input.trna} | cat - {output.txpfile} {output.decoy} > {output.gentrome}
         """
 
 rule salmon_decoy_get_ids:
